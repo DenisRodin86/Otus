@@ -16,12 +16,12 @@ Unit - 1
 Выполняется под пользователем
 
 Включение входа по ключу:
-'''bash
+```bash
 mkdir ~/.ssh
 chmod 0700 ~/.ssh
 nano ~/.ssh/authorized_keys
 chmod 0644 ~/.ssh/authorized_keys
-'''
+```
 
 nano /etc/ssh/sshd_config
 
