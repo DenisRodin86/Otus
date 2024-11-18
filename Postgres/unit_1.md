@@ -12,13 +12,19 @@ Unit - 1
 
 
 Добавление ssh ключа в metadata ВМ
+
 Выполняется под пользователем
+
 Включение входа по ключу:
+'''bash
 mkdir ~/.ssh
 chmod 0700 ~/.ssh
 nano ~/.ssh/authorized_keys
 chmod 0644 ~/.ssh/authorized_keys
+'''
+
 nano /etc/ssh/sshd_config
+
 PasswordAuthentication no  - отключение входа по логин/пароль
 
 
