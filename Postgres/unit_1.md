@@ -23,14 +23,17 @@ nano ~/.ssh/authorized_keys
 chmod 0644 ~/.ssh/authorized_keys
 ```
 
-nano /etc/ssh/sshd_config
 
+Редактируем файл
+```bash
+nano /etc/ssh/sshd_config
+```
 PasswordAuthentication no  - отключение входа по логин/пароль
 
 
 
 
-Удаленный сеанс ssh (первая сессия)
+Удаленный сеанс `ssh` (первая сессия)
 
 
 
@@ -42,10 +45,14 @@ PasswordAuthentication no  - отключение входа по логин/п�
 
 
 Установка postgres
+
+```bash
 sudo dnf install postgresql15-server
 sudo postgresql-15-setup initdb
 sudo systemctl enable postgresql-15.service --now
 sudo systemctl status postgresql-15.service
+```
+
 
 ![Postgers](https://github.com/DenisRodin86/Otus/blob/main/Postgres/1-3.jpg)
 ![Postgers](https://github.com/DenisRodin86/Otus/blob/main/Postgres/1-4.jpg)
