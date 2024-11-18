@@ -1,4 +1,4 @@
-Unit - 1
+Домашнее задание 1
 
 
 
@@ -11,7 +11,7 @@ Unit - 1
 
 
 
-Добавление ssh ключа в metadata ВМ
+Добавление `ssh` ключа в metadata ВМ
 
 Выполняется под пользователем
 
@@ -28,7 +28,7 @@ chmod 0644 ~/.ssh/authorized_keys
 ```bash
 nano /etc/ssh/sshd_config
 ```
-PasswordAuthentication no  - отключение входа по логин/пароль
+`PasswordAuthentication no`  - отключение входа по логин/пароль
 
 
 
@@ -62,7 +62,7 @@ sudo systemctl status postgresql-15.service
 
 
 
-Вторая ssh сессия
+Вторая `ssh` сессия
 
 ![Postgers](https://github.com/DenisRodin86/Otus/blob/main/Postgres/1-5.jpg)
 
@@ -70,7 +70,7 @@ sudo systemctl status postgresql-15.service
 
 
 
-Запускаем psql из под пользователя postgres
+Запускаем `psql` из под пользователя postgres
 
 
 
@@ -79,8 +79,9 @@ sudo systemctl status postgresql-15.service
 
 
 Выключаем auto commit
+```bash
 set autocommit=off
-
+```
 
 
 
