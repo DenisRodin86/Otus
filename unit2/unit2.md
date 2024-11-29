@@ -31,7 +31,7 @@ systemctl status docker
 
 
 
-Добавление пользователя в группу для работы с docker
+Добавление пользователя в группу для работы с `docker`
 ```bash
 usermod -aG docker rodin
 ```
@@ -65,7 +65,7 @@ sudo docker run -itd -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 
 ```
 
 
-Запуск psql в контейнере с `postgres`
+Запуск `psql` в контейнере с `postgres`
 
 ```bash
 sudo docker exec -it postgresql psql -U postgres
