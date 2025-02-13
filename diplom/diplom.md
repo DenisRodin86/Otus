@@ -67,7 +67,7 @@ sudo systemctl restart postgresql-15.service
 ```
 
 
-**Настройка репликации**
+****Настройка репликации****
 
 
 Сервер 1 *Master-сервер*
@@ -86,98 +86,127 @@ host    replication     replication     192.168.5.228/32         md5
 ```
 
 
-В файле postgresql.conf вносим изменения
+В файле `postgresql.conf` вносим изменения
 
+```bash
 wal_level = replica
 max_wal_senders = 10
 wal_keep_size = 1024
+```
 
+Перезапускаем процесс `postgres`
 
-Перезапускаем процесс postgres
-
+```bash
 sudo systemctl restart postgresql-15.service
+```
 
 
 
+****Настройка доп. сервера (slave)****
 
-Настройка доп. сервера (slave)
 
+В файле `pg_hba.conf` вносим строку подключения к master
 
-В файле pg_hba.conf вносим строку подключения к master
-
+```bash
 host    replication     replication     192.168.5.223/32         md5	
+```
 
+В файле `postgresql.conf` вносим изменения
 
-В файле postgresql.conf вносим изменения
-
+```bash
 wal_level = replica
 max_wal_senders = 10
 wal_keep_size = 1024
+```
 
+Перезапускаем процесс `postgres`
 
-Перезапускаем процесс postgres
-
+```bash
 sudo systemctl restart postgresql-15.service
+```
 
-Удаляем директорию установки postgres
+Удаляем директорию установки `postgres`
 
+```bash
 rm -Rf /var/lib/pgsql/15/data/*
+```
 
+В директории `/var/lib/pgsql/15/`
 
-В директории /var/lib/pgsql/15/
-
+```bash
 rm -rf main; mkdir main; chmod go-rwx main
 pg_basebackup -h IP -D /var/lib/pgsql/15/data -P -U replication --wal-method=stream
+```
 
+В файле `postgresql.conf` вносим изменения
 
-В файле postgresql.conf вносим изменения
-
+```bash
 hot_standby = on
-		primary_conninfo = 'user=replication password=111111 host=192.168.5.223 port=5432 sslmode=prefer sslcompression=1 krbsrvname=postgresql-15.service'
-
+primary_conninfo = 'user=replication password=111111 host=192.168.5.223 port=5432 sslmode=prefer sslcompression=1 krbsrvname=postgresql-15.service'
+```
 
 Выполняем процесс синхронизации
 
+```bash
 touch standby.signal
 chown postgres:postgres standby.signal
+```
 
+Перезапускаем процесс `postgres`
 
-Перезапускаем процесс postgres
-
+```bash
 sudo systemctl restart postgresql-15.service
+```
 
-Проверка работы репликации
+Проверка работы репликации на `master` создаем `БД db1`
 
-на master создаем БД db1
+```bash
 create database db1;
+```
 
-Создадим таблицу table1 в этой БД
+Создадим таблицу `table1` в этой БД
 
+```bash
 create table table1 (
 id integer,
 fio text
 );
+```
 
-Заполнение таблицы table1 данными
+Заполнение таблицы `table1` данными
 
+```bash
 insert into table1 (id, fio) values (1, 'Иванов И'), (2, 'Родин Д'), (3, 'Семенов С');
+```
+
 
 Вывод таблицы 
 
+```bash
 select * from table1 ;
+```
 
-![Postgers](рис.3)
 
-на slave выполним запрос к table1 БД db1
 
+![Postgers](https://github.com/DenisRodin86/Otus/blob/main/diplom/d-3.jpg)
+
+
+
+на *slave* выполним запрос к `table1` БД `db1`
+
+```bash
 select * from table1;
+```
+
 
 Получаем аналогичный вывод.
 
-Репликация работает.
+***Репликация работает.***
 
 
-Настройка сервера тестового контура.
+
+
+****Настройка сервера тестового контура.****
 
 Сервер тестового контура будет забирать БД с slave сервера, чтобы не нагружать master сервер.
 
